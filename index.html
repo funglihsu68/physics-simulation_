@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Physics Simulation — Kinetics & Dynamics</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <h1>Kinetics &amp; Dynamics Simulator</h1>
+        <div class="controls">
+          <button id="damping-btn" type="button">Damping: ON</button>
+          <button id="pause-btn" type="button">Pause</button>
+          <button id="reset-btn" type="button">Reset</button>
+        </div>
+      </header>
+
+      <main>
+        <aside class="panel panel-left">
+          <section class="tools-section">
+            <h2>Add Objects</h2>
+            <div class="tool-grid">
+              <button id="add-ball-btn" type="button" data-tool="ball">+ Ball</button>
+              <button id="add-block-btn" type="button" data-tool="block">+ Block</button>
+            </div>
+            <button id="delete-btn" type="button" class="danger-btn">Delete Selected</button>
+            <p id="spring-status" class="spring-status">Hold Ctrl + click objects to connect a spring.</p>
+            <p class="hint">
+              Left-click drag to move. Right-click drag for torque. Ctrl+click to add springs.
+            </p>
+          </section>
+
+          <section id="props-panel" class="props-section">
+            <h2>Selected Object</h2>
+            <p class="props-type">Type: <span id="props-type">Ball</span></p>
+            <label class="slider-label" for="elasticity-slider">
+              Elasticity (restitution)
+              <span id="elasticity-value">0.78</span>
+            </label>
+            <input id="elasticity-slider" type="range" min="0" max="1" step="0.01" value="0.78" />
+          </section>
+        </aside>
+
+        <div class="canvas-wrap">
+          <canvas id="sim-canvas"></canvas>
+        </div>
+
+        <aside class="panel panel-right">
+          <section class="energy-section">
+            <h2>Energy</h2>
+            <div class="energy-bar-group">
+              <label>Kinetic Energy (KE)</label>
+              <div class="bar-track">
+                <div id="ke-bar" class="bar-fill ke"></div>
+              </div>
+              <span id="ke-value" class="energy-value">0.00 J</span>
+            </div>
+            <div class="energy-bar-group">
+              <label>Gravitational Potential Energy (PE)</label>
+              <div class="bar-track">
+                <div id="pe-bar" class="bar-fill pe"></div>
+              </div>
+              <span id="pe-value" class="energy-value">0.00 J</span>
+            </div>
+            <div id="spe-group" class="energy-bar-group" hidden>
+              <label>Spring Potential Energy (SPE)</label>
+              <div class="bar-track">
+                <div id="spe-bar" class="bar-fill spe"></div>
+              </div>
+              <span id="spe-value" class="energy-value">0.00 J</span>
+            </div>
+            <div class="energy-bar-group">
+              <label>Thermal Energy (dissipated)</label>
+              <div class="bar-track">
+                <div id="te-bar" class="bar-fill te"></div>
+              </div>
+              <span id="te-value" class="energy-value">0.00 J</span>
+            </div>
+            <div class="energy-bar-group total">
+              <label>Total Mechanical Energy</label>
+              <span id="total-value" class="energy-value">0.00 J</span>
+            </div>
+          </section>
+        </aside>
+      </main>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

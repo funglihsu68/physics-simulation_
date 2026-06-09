@@ -1,0 +1,272 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --border: #2a2f3d;
+  --text: #e8eaed;
+  --muted: #8b92a5;
+  --accent: #5b8def;
+  --ke-color: #f59e0b;
+  --pe-color: #22d3ee;
+  --spe-color: #f472b6;
+  --te-color: #f87171;
+  --ball-color: #a78bfa;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+button {
+  font: inherit;
+  padding: 0.45rem 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+button:hover {
+  background: #252936;
+  border-color: #3d4455;
+}
+
+button#pause-btn.paused {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+button#damping-btn.off {
+  border-color: var(--te-color);
+  color: var(--te-color);
+}
+
+button.active {
+  border-color: var(--accent);
+  background: rgba(91, 141, 239, 0.15);
+  color: var(--accent);
+}
+
+button.danger-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-color: rgba(248, 113, 113, 0.4);
+  color: #fca5a5;
+}
+
+button.danger-btn:hover {
+  background: rgba(248, 113, 113, 0.1);
+}
+
+main {
+  display: grid;
+  grid-template-columns: 240px 1fr 240px;
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+.canvas-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+#sim-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: none;
+}
+
+#sim-canvas.grab-hover {
+  cursor: grab;
+}
+
+#sim-canvas.dragging {
+  cursor: grabbing;
+}
+
+#sim-canvas.torque-mode {
+  cursor: crosshair;
+}
+
+#sim-canvas.place-mode {
+  cursor: crosshair;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.panel section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem;
+}
+
+.panel h2 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 0.65rem;
+}
+
+.energy-bar-group {
+  margin-bottom: 0.75rem;
+}
+
+.energy-bar-group:last-child {
+  margin-bottom: 0;
+}
+
+.energy-bar-group label {
+  display: block;
+  font-size: 0.78rem;
+  margin-bottom: 0.3rem;
+}
+
+.bar-track {
+  height: 16px;
+  background: #12151c;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 3px;
+  transition: width 0.05s linear;
+}
+
+.bar-fill.ke {
+  background: linear-gradient(90deg, #d97706, var(--ke-color));
+}
+
+.bar-fill.pe {
+  background: linear-gradient(90deg, #0891b2, var(--pe-color));
+}
+
+.bar-fill.spe {
+  background: linear-gradient(90deg, #db2777, var(--spe-color));
+}
+
+.bar-fill.te {
+  background: linear-gradient(90deg, #dc2626, var(--te-color));
+}
+
+.energy-value {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.energy-bar-group.total {
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--border);
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+}
+
+.tool-grid button {
+  padding: 0.4rem 0.35rem;
+  font-size: 0.82rem;
+}
+
+.props-type {
+  font-size: 0.82rem;
+  margin-bottom: 0.65rem;
+}
+
+.slider-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  margin-bottom: 0.3rem;
+}
+
+#elasticity-slider {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.spring-status {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 0.45rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #12151c;
+  line-height: 1.35;
+}
+
+.spring-status.active {
+  color: #f9a8d4;
+  border-color: rgba(244, 114, 182, 0.45);
+  background: rgba(244, 114, 182, 0.08);
+}
+
+.hint {
+  margin-top: 0.55rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
